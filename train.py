@@ -197,7 +197,8 @@ def main():
   in_features = model.roi_heads.box_predictor.cls_score.in_features # we need to change the head
   model.roi_heads.box_predictor = models.detection.faster_rcnn.FastRCNNPredictor(in_features, n_classes)
 
-  device = torch.device("cpu") # use GPU to train
+  device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # colocando o modelo para trabalhar na brutalidade
+  print('Device instance:::',device)
 
   model = model.to(device)
 
