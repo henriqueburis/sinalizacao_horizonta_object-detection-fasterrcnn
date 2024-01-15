@@ -1,4 +1,4 @@
-# Sinalizacoa Horizonta object-detection-fasterrcnn.
+# Sinalizacão Horizonta object-detection-fasterrcnn.
 
 
 
