@@ -34,4 +34,4 @@
 
 Amostra  | Pred
 :-------------------------:|:-------------------------:
-![](https://github.com/henriqueburis/Potato_Classification_CNN/blob/main/fig/example_o.png) |  ![](https://github.com/henriqueburis/Potato_Classification_CNN/blob/main/fig/example_sam.png) 
+![](https://github.com/henriqueburis/sinalizacao_horizonta_object-detection-fasterrcnn/blob/main/figure/amostra.png) |  ![](https://github.com/henriqueburis/sinalizacao_horizonta_object-detection-fasterrcnn/blob/main/figure/predict.png) 
