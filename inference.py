@@ -19,24 +19,14 @@ import datetime
 import time
 from tqdm import tqdm # progress bar
 
+from google.colab.patches import cv2_imshow
 
-parser = argparse.ArgumentParser(description='PyTorch Pré_Treined fasterrcnn')
-#parser.add_argument("--dataset_path", default="", type=str, required=True,
- #                   help="informação.")
-#parser.add_argument('--batch_size',
- #                   default=4, type=int, help='batch_size')
-#parser.add_argument('--epoch', default=100,
- #                   type=int, help='you need in the epoch')
-#parser.add_argument('--num-workers', type=int,
- #                   default=4, help='number of workers')
-#parser.add_argument("--input_size", default=600,
- #                   type=int, help="input size img.")
+labels_ = ['frente', 'frente', 'frente_esqueda', 'frete_esqueda', 'frente',]
 
-
-args = parser.parse_args()
+output_video = cv2.VideoWriter('/content/output.mp4', cv2.VideoWriter_fourcc(*'XVID'), 30, (1280, 720))  # 'output.mp4' é o nome do arquivo de saída MP4
 
 path_model = "/content/placas/15012024custon_fasterrcnn_mobilenet_v3_large_fpn.pth"
-video_path = '/content/tokio_01_g.mp4'
+video_path = '/content/video_teste.mp4'
 n_classes = 5
 
 def main():
@@ -68,9 +58,21 @@ def main():
     # Faça uma detecção no quadro
     with torch.no_grad():
       predictions = model(frame_tensor.to('cpu'))
-    print(predictions)
- 
- 
+    #print(predictions)
+
+    for score, bbox, labels in zip(predictions[0]['scores'], predictions[0]['boxes'], predictions[0]['labels']):
+      if(score >= 0.8):
+        x, y, w, h = bbox
+        x, y, w, h = int(x), int(y), int(w), int(h)
+
+        cv2.putText(image_copy, str(labels_[labels.item()]), (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.rectangle(image_copy, (x, y), (w,h), (0, 0, 255), 2)
+
+
+    output_video.write(image_copy)
+
+  output_video.release()
+
 
 if __name__ == '__main__':
     main()
